@@ -1,6 +1,10 @@
 #!/bin/bash
 MAX_SITES=15
 
+mkdir -p temp
+mkdir -p statistics
+mkdir -p sites
+
 echo "WMDD4950 - Security & Cloud & Server Admn"
 echo "William Takashi Mimura - id:100284327"
 echo 
@@ -94,16 +98,18 @@ do
   THIS_FILE=${THIS_FILE:6}
   
   # separating each word in a new line
-  echo "Getting all words from file $THIS_FILE"
+  echo "Treating file $THIS_FILE: getting words, treating and counting..."
   # for word in `cat sites/"$THIS_FILE".html`; do echo $word; done > "temp/$THIS_FILE.txt"
   for w in `lynx -dump sites/"$THIS_FILE".html`; do echo ${w,,}; done > "temp/$THIS_FILE.txt"
   
-  echo "Removing final characters , . : ;  Sorting the file and counting words..."
+  # treating the file, some words are ending with ,.:;
   sed -i "s/,$//g; s/\.$//g; s/:$//g; s/\;$//g" "temp/$THIS_FILE.txt"
+  # sorting the words for better counting algorithm
   sort "temp/$THIS_FILE.txt" -o "temp/$THIS_FILE.sorted.txt"
   lw=""
   count=0
   first="y"
+  # count algorithm, considering words are sorted and treated
   for w in `cat "temp/$THIS_FILE.sorted.txt"`;
   do
     if [ $first == "y" ];
@@ -122,8 +128,22 @@ do
     
     lw=$w
   done > "temp/$THIS_FILE.counted.txt"
+  # adding the last word because of the algorithm
   sed -i "\$a$lw => $count" "temp/$THIS_FILE.counted.txt"
+  # moving the final file to the right directory "statistics"
+  mv "temp/$THIS_FILE.counted.txt" "statistics/$THIS_FILE.txt"
   
   MAIN_IND=$((MAIN_IND + 1))
 done
-echo "done"
+echo
+END_TIME_2=$(date +%s)
+echo "Step 2 completed at $(date) - $(($END_TIME_2 - $END_TIME_1)) seconds"
+echo
+echo "Process finished!!! $(($END_TIME_2 - $START_TIME)) seconds"
+echo "Some temporary files were criated in the process, would you like to remove them? (y/n)"
+read input
+if [ $input == "y" ] || [ $input == "Y" ];
+then
+  rm -r temp/*
+fi
+echo "done :)"
