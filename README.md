@@ -1,5 +1,5 @@
 # WMDD4950 - Shell Script Project
-Repository for a web crawler (up to 10k sites) by using BFS algorithm. Made in shell script.
+Repository for a web crawler (up to 10k sites) by using BFS algorithm. Made in shell script (v4.0+).
 
 Starting from https://en.wikipedia.org/wiki/Cloud_computing the script will crawl the first 10k non-repetitive wiki pages, using BFS algorithm, and will save the pages on disk, process the files and extract the words inside each file and save them in form of an indexer in which each file has an alphabetically sorted list of words in which each line has the world and the number of times that word has shown up in that file.
 
