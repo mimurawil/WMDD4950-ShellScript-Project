@@ -1,5 +1,10 @@
 #!/bin/bash
-MAX_SITES=15
+if [ $1 == "" ] || [ $1 == "0" ];
+then
+  MAX_SITES=150
+else
+  MAX_SITES=$1
+fi
 
 mkdir -p temp
 mkdir -p statistics
@@ -51,7 +56,7 @@ do
       FOUND="n"
       for j in "${MAIN_ARRAY[@]}"
       do
-        if [ $i == $j ];
+        if [ ${i,,} == ${j,,} ];
         then
           FOUND="y"
           REPEATED=$((REPEATED + 1))
