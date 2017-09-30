@@ -115,15 +115,17 @@ do
     lynx -dump sites/"$THIS_FILE".html > temp/"$THIS_FILE".txt
 
     # treating the file, some words are ending with ,.:;
-    cat "temp/$THIS_FILE.txt" | tr -dc "[:alpha:] \-\/\_\.\n\r" | tr "[:upper:]" "[:lower:]" > "temp/$THIS_FILE.treated.txt"
+    cat "temp/$THIS_FILE.txt" | tr -dc "[:alpha:] \-\/\_\.\n\r" | tr "[:upper:]" "[:lower:]" > "temp/$THIS_FILE.treated1.txt"
+    for w in `cat temp/"$THIS_FILE".treated1.txt`; do echo "$w"; done > temp/"$THIS_FILE".separated.txt
     #sed -i "s/,$//g; s/\.$//g; s/:$//g; s/\;$//g" "temp/$THIS_FILE.treated.txt"
-    sed -i "s/^file\/\/.*//g; s/^https\/\/.*//g; s/^http\/\/.*//g; s/^android-app\/\/.*//g; s/^-//g; s/^-//g; s/^-//g; s/^-//g; s/-$//g; s/,$//g; s/\.$//g; s/\.$//g; s/\.$//g; s/\/$//g; s/\.$//g; s/\.$//g; s/\.$//g; s/:$//g; s/\;$//g; /^$/d" "temp/$THIS_FILE.treated.txt"
+    cp temp/"$THIS_FILE".separated.txt temp/"$THIS_FILE".treated2.txt
+    sed -i "s/^file\/\/.*//g; s/^https\/\/.*//g; s/^http\/\/.*//g; s/^android-app\/\/.*//g; s/^-//g; s/^-//g; s/^-//g; s/^-//g; s/-$//g; s/,$//g; s/\.$//g; s/\.$//g; s/\.$//g; s/\/$//g; s/\.$//g; s/\.$//g; s/\.$//g; s/:$//g; s/\;$//g; /^$/d" "temp/$THIS_FILE.treated2.txt"
 
-    for w in temp/"$THIS_FILE".treated.txt; do echo "$w"; done > temp/"$THIS_FILE".separated.txt
+    # for w in `cat temp/"$THIS_FILE".treated.txt`; do echo "$w"; done > temp/"$THIS_FILE".separated.txt
 
     # sorting the words for better counting algorithm
     #sort "temp/$THIS_FILE.treated.txt" -o "temp/$THIS_FILE.sorted.txt"
-    sort "temp/$THIS_FILE.separated.txt" -o "temp/$THIS_FILE.sorted.txt"
+    sort "temp/$THIS_FILE.treated2.txt" -o "temp/$THIS_FILE.sorted.txt"
     lw=""
     count=0
     first="y"
