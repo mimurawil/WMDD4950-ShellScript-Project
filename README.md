@@ -5,6 +5,10 @@ Starting from https://en.wikipedia.org/wiki/Cloud_computing the script will craw
 
 After creating the indexer file, there's another script which takes a word as input and outputs the total count of appearance of that word in your files plus the number of times that it appears on each file that has the word.
 
+## Requirements
+* Shell Script version 4 or older
+* Lynx browser (a good source on how to install: https://www.tecmint.com/command-line-web-browsers/)
+
 ## How to Use
 1. Download the two bash files `crawler.sh` and `count.sh`
 2. Execute the crawler file `./crawler.sh nnn` _(nnn is the limit of number of sites to crawl, if not specified 150 assumed)_
