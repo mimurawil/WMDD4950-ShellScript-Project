@@ -105,7 +105,13 @@ do
     # separating each word in a new line
     echo "Treating file $THIS_FILE: getting words, treating and counting..."
     # for word in `cat sites/"$THIS_FILE".html`; do echo $word; done > "temp/$THIS_FILE.txt"
-    for w in `lynx -dump sites/"$THIS_FILE".html`; do echo ${w,,}; done > "temp/$THIS_FILE.txt"
+    for w in `lynx -dump sites/"$THIS_FILE".html`;
+    do
+        if [ "$w" != "*" ];
+        then
+            echo "${w,,}";
+        fi 
+    done > "temp/$THIS_FILE.txt"
 
     # treating the file, some words are ending with ,.:;
     cat "temp/$THIS_FILE.txt" | tr -dc "[:alpha:]\-\/\_\.\n\r" > "temp/$THIS_FILE.treated.txt"
