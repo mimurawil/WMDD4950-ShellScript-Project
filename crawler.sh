@@ -149,6 +149,8 @@ do
 
     MAIN_IND=$((MAIN_IND + 1))
 done
+
+# final display with the total time spent
 echo
 END_TIME_2=$(date +%s)
 echo "Step 2 completed at $(date) - $(($END_TIME_2 - $END_TIME_1)) seconds"

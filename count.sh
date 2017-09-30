@@ -15,7 +15,6 @@ do
     fi
     TOTAL_COUNT=$((TOTAL_COUNT + FIND_ARRAY[2]))
 done > "result.txt"
-#sed -i "TOTAL = $((TOTAL_COUNT))" "result.txt"
 sort -rk 3 result.txt -o result.txt
 echo "$TOTAL_COUNT occurrences found in all files"
 echo
