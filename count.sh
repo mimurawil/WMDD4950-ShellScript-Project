@@ -9,7 +9,10 @@ TOTAL_COUNT=0
 for file in statistics/*.txt
 do
   FIND_ARRAY=(`grep "^$1 => .*" $file`)
-  echo "$file : ${FIND_ARRAY[@]}"
+  if [ "${FIND_ARRAY[2]}" != "" ];
+  then
+    echo "$file : ${FIND_ARRAY[@]}"
+  fi
   TOTAL_COUNT=$((TOTAL_COUNT + FIND_ARRAY[2]))
 done > "result.txt"
 #sed -i "TOTAL = $((TOTAL_COUNT))" "result.txt"
