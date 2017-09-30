@@ -108,8 +108,9 @@ do
     for w in `lynx -dump sites/"$THIS_FILE".html`; do echo ${w,,}; done > "temp/$THIS_FILE.txt"
 
     # treating the file, some words are ending with ,.:;
-    cat "temp/$THIS_FILE.txt" | tr -dc "[:alpha:]\.\n\r" > "temp/$THIS_FILE.treated.txt"
-    sed -i "s/,$//g; s/\.$//g; s/:$//g; s/\;$//g" "temp/$THIS_FILE.treated.txt"
+    cat "temp/$THIS_FILE.txt" | tr -dc "[:alpha:]\-\/\_\.\n\r" > "temp/$THIS_FILE.treated.txt"
+    #sed -i "s/,$//g; s/\.$//g; s/:$//g; s/\;$//g" "temp/$THIS_FILE.treated.txt"
+    sed -i "s/^file\/\/.*//g; s/^https\/\/.*//g; s/^http\/\/.*//g; s/^android-app\/\/.*//g; s/^-//g; s/^-//g; s/^-//g; s/^-//g; s/-$//g; s/,$//g; s/\.$//g; s/\.$//g; s/\.$//g; s/\/$//g; s/\.$//g; s/\.$//g; s/\.$//g; s/:$//g; s/\;$//g; /^$/d" "temp/$THIS_FILE.treated.txt"
     # sorting the words for better counting algorithm
     sort "temp/$THIS_FILE.treated.txt" -o "temp/$THIS_FILE.sorted.txt"
     lw=""
